@@ -1,0 +1,17 @@
+<div *ngIf="!currentSortOption" class="sorter sorter-off">
+	<a (click)="sort()" href="javascript:;" class="sorter-up hidden-print">
+		<span class="column-label">{{label}}</span>
+		<i class="icon ion-ios-arrow-round-down hidden-print"></i><i class="icon ion-ios-arrow-round-up hidden-print"></i>
+	</a>
+</div>
+
+<div *ngIf="currentSortOption" class="sorter sorter-on">
+	<a *ngIf="currentSortOption=='asc'" (click)="sort()" href="javascript:;" class="sorter-up">
+		<span>{{label}}</span>
+		<i class="icon ion-md-arrow-down hidden-print"></i>
+	</a>
+	<a *ngIf="currentSortOption=='desc'" (click)="sort()" href="javascript:;" class="sorter-down">
+		<span>{{label}}</span>
+		<i class="icon ion-md-arrow-up hidden-print"></i>
+	</a>
+</div>

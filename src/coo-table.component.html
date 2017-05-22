@@ -1,0 +1,25 @@
+<div class="table-responsive">
+	<table ngClass="{{config.tableCssClassNames || ''}}">
+		<!--<thead *ngIf="!hasCustomHeaderTemplate">
+			<tr>
+				<th *ngFor="let column of headerRow">{{column}}
+					<coo-table-sorter columnName="column"></coo-table-sorter>
+				</th>
+			</tr>
+		</thead>-->
+		<thead>
+			<template [ngTemplateOutlet]="header"></template>
+			<template [ngTemplateOutlet]="filters"></template>
+		</thead>
+		<!--<tbody *ngIf="!hasCustomRowTemplate">-->
+		<!--<tr *ngFor="let row of rows">
+			<td *ngFor="let column of row; let i = index;">{{column.ref[i]}}</td>
+		</tr>-->
+		<!--</tbody>-->
+		<tbody>
+			<tr *ngFor="let row of rows" [class.selected]="isSelected(row.id)">
+				<template *ngFor="let column of currentRow" [ngTemplateOutlet]="column.ref" [ngOutletContext]="{ row: row }"></template>
+			</tr>
+		</tbody>
+	</table>
+</div>

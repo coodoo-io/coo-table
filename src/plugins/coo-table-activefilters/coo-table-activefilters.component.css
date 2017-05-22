@@ -1,0 +1,13 @@
+.toolbar-filters {
+    text-align: right;
+}
+
+.toolbar-filters-title {
+    font-family: "newsGothic_demi",Arial,Verdana,Helvetica,sans-serif;
+    display: inline-block;
+    font-size: .8rem;
+    margin-top: 3px;
+    font-weight: 700;
+    margin-right: 5px;
+    color: #333;
+}

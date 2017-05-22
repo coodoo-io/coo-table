@@ -1,0 +1,24 @@
+.sorter {
+	display: inline-block;
+}
+
+.sorter.sorter-off {
+	margin-left: 5px;
+}
+
+.sorter.sorter-off .sorter-down {
+	margin-left: -4px;
+}
+
+.sorter.sorter-off a {
+	color: #666;
+}
+
+.sorter.sorter-on {
+	margin-left: 0;
+}
+
+.sorter.sorter-on a.sorter-down,
+.sorter.sorter-on a.sorter-up {
+	color: #009;
+}

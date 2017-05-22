@@ -1,0 +1,10 @@
+.rows-per-page .dropdown-toggle {
+	padding-left: .75rem;
+	padding-right: .75rem;
+}
+
+.rows-per-page .dropdown-menu {
+	min-width: 1rem;
+	max-height: 200px;
+	overflow-y: auto;
+}

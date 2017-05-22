@@ -1,0 +1,21 @@
+<div *ngIf="pages.length > 1" class="btn-group coo-table-pager" role="group" aria-label="Paging Buttons" style="margin-left: 15px;">
+	<button *ngIf="metadata?.currentPage == 1" class="btn btn-icon btn-secondary disabled btn-page-prev" disabled>
+		<i class="icon ion-ios-arrow-back"></i>
+	</button>
+	<button *ngIf="metadata?.currentPage > 1" (click)="loadPrevPage()" class="btn btn-icon btn-secondary btn-page-prev">
+		<i class="icon ion-ios-arrow-back"></i>
+	</button>
+	<div class="btn-group rows-per-page" [class.show]="menuOpen">
+		<button *ngIf="pages.length == 1" type="button" class="btn btn-secondary dropdown-toggle" disabled>{{metadata?.currentPage}}</button>
+		<button *ngIf="pages.length > 1" (click)="menuOpen=!menuOpen" type="button" class="btn btn-secondary dropdown-toggle">{{metadata?.currentPage}}</button>
+		<div *ngIf="pages.length > 1" class="dropdown-menu">
+			<a *ngFor="let page of pages" class="dropdown-item" href="javascript:;" (click)="goToPage(page)">{{page}}</a>
+		</div>
+	</div>
+	<button *ngIf="metadata?.currentPage < metadata?.numPages" (click)="loadNextPage()" class="btn btn-icon btn-secondary btn-page-next">
+		<i class="icon ion-ios-arrow-forward"></i>
+	</button>
+	<button *ngIf="metadata?.currentPage == metadata?.numPages" class="btn btn-icon btn-secondary disabled btn-page-next">
+		<i class="icon ion-ios-arrow-forward"></i>
+	</button>
+</div>

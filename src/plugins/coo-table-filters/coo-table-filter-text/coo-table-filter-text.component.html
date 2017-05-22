@@ -1,0 +1,3 @@
+<input #cooTableFilter (input)="filter$.next($event.target.value)" (focus)="selectText()" placeholder="" class="form-control"
+/>
+<div class="delete" (click)="deleteValue()">x</div>

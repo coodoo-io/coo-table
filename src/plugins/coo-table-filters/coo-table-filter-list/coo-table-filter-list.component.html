@@ -1,0 +1,11 @@
+<div class="btn-group dropdown btn-block coo-table-filter-list {{column}}" [ngClass]="{show:menuOpen}">
+    <button *ngIf="selectedItem" (click)="openMenu()" type="button" class="btn btn-sm btn-secondary bg-filter-active">{{selectedItem}} <i (click)="removeSelectedItem($event)" class="icon ion-ios-close"></i></button>
+    <button *ngIf="!selectedItem" (click)="openMenu()" type="button" class="btn btn-sm btn-outline-secondary btn-block dropdown-toggle">Wählen</button>
+    <div class="dropdown-menu">
+        <span class="form-group filter-input"><input type="text" class="form-item list-filter-input" value="" placeholder="Filter..." (keyup)="filterList($event)"/></span>
+        <span class="drop-down-content">
+            <span class="info" *ngIf="list.length === 0">Keine Einträge vorhanden</span>
+        <a *ngFor="let listItem of list" class="dropdown-item" href="javascript:;" (click)="selectListItem(listItem)">{{listItem}}</a>
+        </span>
+    </div>
+</div>

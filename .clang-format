@@ -1,0 +1,26 @@
+Language:        JavaScript
+BasedOnStyle:    WebKit
+ColumnLimit:     180
+AlignAfterOpenBracket: true
+AlignTrailingComments: true
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+SpacesInContainerLiterals: true
+TabWidth: 4
+JavaScriptQuotes: Single
+MaxEmptyLinesToKeep: 1
+UseTab: Never
+AlignEscapedNewlinesLeft: true
+BraceWrapping:
+    AfterControlStatement: false
+    AfterClass: true
+    AfterEnum: false
+    AfterFunction: false
+    AfterObjCDeclaration: false
+    IndentBraces: false
+BreakBeforeBraces: Attach
+BreakAfterJavaFieldAnnotations: true
+JavaScriptWrapImports: true
+SpacesInSquareBrackets: false

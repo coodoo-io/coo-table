@@ -1,0 +1,38 @@
+{
+    "$schema": "./../node_modules/@angular/cli/lib/config/schema.json",
+    "project": {
+        "name": "demo"
+    },
+    "apps": [
+        {
+            "root": "./",
+            "outDir": "dist",
+            "assets": [
+                "./src/assets",
+                "./src/favicon.ico"
+            ],
+            "index": "./src/index.html",
+            "main": "./src/main.ts",
+            "polyfills": "./src/polyfills.ts",
+            "test": "./src/test.ts",
+            "tsconfig": "./tsconfig.json",
+            "testTsconfig": "",
+            "prefix": "coo",
+            "styles": [
+                "./src/styles.css",
+                "./../node_modules/bootstrap/dist/css/bootstrap.css",
+                "./../node_modules/ionicons/dist/css/ionicons.min.css"
+            ],
+            "scripts": [],
+            "environmentSource": "./src/environments/environment.ts",
+            "environments": {
+                "dev": "./src/environments/environment.ts",
+                "prod": "./src/environments/environment.prod.ts"
+            }
+        }
+    ],
+    "defaults": {
+        "styleExt": "css",
+        "component": {}
+    }
+}
