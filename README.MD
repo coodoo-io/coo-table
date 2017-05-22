@@ -4,7 +4,7 @@
 
 > A flexible Table for your REST-Service. Customize it to your needs as everything can be changed via Templates.
 
-[Visit our Demo Page](https://s3.eu-central-1.amazonaws.com/coodoo-baf-resources/coo-table/demo/src/index.html)
+[Visit our Demo Page](http://coo-table.coodoo.io)
 
 ## Table of Contents
 
