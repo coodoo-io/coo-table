@@ -5,9 +5,9 @@ import {forEach} from '@angular/router/src/utils/collection';
 import {CooTableConfig} from '../../../src/model/coo-table-config.model';
 
 import {CooTableService} from './modules/table/coo-table.service';
-import {Listing} from './modules/table/model/listing';
 import {ListingMetadata} from './modules/table/model/listing-metadata';
 import {ListingParameters} from './modules/table/model/listing-query-params.model';
+import {ListingResult} from './modules/table/model/listing-result';
 import {CooTableFilterEvent} from './modules/table/plugins/coo-table-filters/coo-table-filter.event';
 import {CooTablePagerEvent} from './modules/table/plugins/coo-table-pager/coo-table-pager.event';
 import {CooTableRowSelectEvent} from './modules/table/plugins/coo-table-rowselect/coo-table-rowselect.event';
@@ -30,7 +30,7 @@ export class AppComponent {
         this._queryParams.limit = this.limit;
         this._queryParams.page = 1;
 
-        wineService.getAllWines(this._queryParams).subscribe((listingResult: Listing<Wine>) => {
+        wineService.getAllWines(this._queryParams).subscribe((listingResult: ListingResult<Wine>) => {
             this.metadata = listingResult.metadata;
             this.rows = listingResult.results;
             const querySubscription = _activeRoute.queryParams.subscribe(data => {
@@ -45,7 +45,7 @@ export class AppComponent {
                     // Only Sort
                     this._queryParams.sort = data.sort;
                     this._queryParams.sortColumn = data.columName;
-                    wineService.sortWines(this._queryParams, data.columName).subscribe((listingResult: Listing<Wine>) => {
+                    wineService.sortWines(this._queryParams, data.columName).subscribe((listingResult: ListingResult<Wine>) => {
                         this.metadata = listingResult.metadata;
                         this.rows = listingResult.results;
                     });
@@ -53,7 +53,7 @@ export class AppComponent {
                     this._queryParams.sort = data.sort;
                     this._queryParams.sortColumn = data.columName;
                     this._queryParams.filter = data.search;
-                    this.wineService.filterAllColumns(this._queryParams).subscribe((listingResult: Listing<Wine>) => {
+                    this.wineService.filterAllColumns(this._queryParams).subscribe((listingResult: ListingResult<Wine>) => {
                         this.metadata = listingResult.metadata;
                         this.rows = listingResult.results;
                     });
@@ -65,7 +65,7 @@ export class AppComponent {
                         console.log(filterJSON[i]);
                         this._queryParams.attributeFilters.set(filterJSON[i]['column'], filterJSON[i]['filterValue']);
                     }
-                    this.wineService.filterWines(this._queryParams).subscribe((listingResult: Listing<Wine>) => {
+                    this.wineService.filterWines(this._queryParams).subscribe((listingResult: ListingResult<Wine>) => {
                         this.metadata = listingResult.metadata;
                         this.rows = listingResult.results;
                     });
@@ -111,7 +111,7 @@ export class AppComponent {
 
         this._queryParams.page = 1;
 
-        this.wineService.filterWines(this._queryParams).subscribe((listingResult: Listing<Wine>) => {
+        this.wineService.filterWines(this._queryParams).subscribe((listingResult: ListingResult<Wine>) => {
             this.metadata = listingResult.metadata;
             this.rows = listingResult.results;
         });
@@ -120,7 +120,7 @@ export class AppComponent {
         console.log('Sort:', event);
         this._queryParams.sort = event.sort;
         this._queryParams.sortColumn = event.field;
-        this.wineService.sortWines(this._queryParams, event.field).subscribe((listingResult: Listing<Wine>) => {
+        this.wineService.sortWines(this._queryParams, event.field).subscribe((listingResult: ListingResult<Wine>) => {
             this.metadata = listingResult.metadata;
             this.rows = listingResult.results;
         });
@@ -134,7 +134,7 @@ export class AppComponent {
         this._queryParams.attributeFilters.clear();
 
         this._queryParams.page = 1;
-        this.wineService.filterAllColumns(this._queryParams).subscribe((listingResult: Listing<Wine>) => {
+        this.wineService.filterAllColumns(this._queryParams).subscribe((listingResult: ListingResult<Wine>) => {
             this.metadata = listingResult.metadata;
             this.rows = listingResult.results;
         });
@@ -144,7 +144,7 @@ export class AppComponent {
 
         this._queryParams.limit = this.limit;
         this._queryParams.page = event.page;
-        this.wineService.getAllWines(this._queryParams).subscribe((listingResult: Listing<Wine>) => {
+        this.wineService.getAllWines(this._queryParams).subscribe((listingResult: ListingResult<Wine>) => {
             this.metadata = listingResult.metadata;
             this.rows = listingResult.results;
         })

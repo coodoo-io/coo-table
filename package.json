@@ -12,7 +12,7 @@
     "start:app": "cd demo; npm start",
     "build:ngc": "npm run clean; npm run inline; ngc -p tsconfig-ngc.json; rimraf .dist; copyfiles README.MD HISTORY.MD ./dist; cp _package.json ./dist/package.json",
     "build:demo": "npm run clean && cd demo && ng build --prod --aot=false --output-hashing none",
-    "replace:demo": "replace '<base href=\"/\">' '<base href=\"**REPLACE**\">' ./demo/dist/src/index.html && replace 'src=\"../' 'src=\"./../' ./demo/dist/src/index.html && replace 'href=\"/src/' 'href=\"./' ./demo/dist/src/index.html",
+    "replace:demo": "replace '<base href=\"/\">' '<base href=\"https://s3.eu-central-1.amazonaws.com/coodoo-baf-resources/coo-table/demo/src/\">' ./demo/dist/src/index.html && replace 'src=\"../' 'src=\"./../' ./demo/dist/src/index.html && replace 'href=\"/src/' 'href=\"./' ./demo/dist/src/index.html",
     "ts-lint": "tslint -c tslint.json './src/**/*.ts' -e './src/**/*.spec.ts' -e ./src/test.ts || true",
     "inline": "ng2inline --outDir=./.dist './src/**/*.ts'",
     "inline:demo": "ng2inline --outDir=./.dist/demo './demo/src/**/*.ts' && ng2inline --outDir=./.dist/src './src/**/*.ts'",

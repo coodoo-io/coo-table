@@ -1,6 +1,11 @@
-import {EventEmitter, Inject, Injectable} from '@angular/core';
+import 'rxjs/add/observable/of';
 
+import {EventEmitter, Inject, Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+
+import {ListingMetadata} from './../model/listing-metadata';
 import {ListingParameters} from './../model/listing-query-params.model';
+import {ListingResult} from './../model/listing-result';
 
 /**
  * @TODO renaming ClientListingDataService
@@ -10,6 +15,7 @@ export class CooTableDataService {
     private _originalData: any;
     private _renderData: any;
     private _resetFilter$: EventEmitter<string> = new EventEmitter<string>();
+    private _metaData = new ListingMetadata();
     /**
      *
      * @param data
@@ -45,9 +51,50 @@ export class CooTableDataService {
     /**
      *
      * @param queryParams
+     * @param columnName
      * @param columnsToExclude
      */
-    public filterAll(queryParams: ListingParameters, columnsToExclude: Array<string> = []): any {
+    public getData(queryParams: ListingParameters, columnName: string = '', columnsToExclude: Array<string> = []): Observable<any> {
+        const listingResult = new ListingResult<any>();
+        let tempData = [];
+        queryParams.sortColumn = columnName;
+        if (columnsToExclude.length > 0) {
+            tempData = this.filterAll(queryParams, columnsToExclude);
+        } else {
+            tempData = this.filter(queryParams);
+        }
+
+        this._metaData.count = tempData.length;
+        this._metaData.currentPage = queryParams.page;
+        this._metaData.limit = queryParams.limit;
+        this._metaData.numPages = this.countPages(tempData.length, this._metaData.limit);
+        this._metaData.startIndex = (this._metaData.currentPage * this._metaData.limit) - this._metaData.limit + 1;
+        this._metaData.endIndex = this.calcEndIndex(this._metaData.count, this._metaData.startIndex, this._metaData.limit);
+        listingResult.metadata = {...this._metaData };
+        listingResult.results = tempData.slice(this._metaData.startIndex - 1, this._metaData.endIndex);
+
+        return Observable.of(listingResult);
+    }
+
+    private calcEndIndex(totalCount: number, startIndex: number, limit: number) {
+        let endIndex: number = startIndex + limit - 1;
+        return endIndex > totalCount ? totalCount : endIndex;
+    }
+
+    private countPages(totalRecords: number, recordsPerPage: number): number {
+        let numPages = totalRecords / recordsPerPage + (totalRecords % recordsPerPage !== 0 ? 1 : 0);
+        if (totalRecords < recordsPerPage) {
+            numPages = 1;
+        }
+        return Math.floor(numPages);
+    }
+
+    /**
+     *
+     * @param queryParams
+     * @param columnsToExclude
+     */
+    private filterAll(queryParams: ListingParameters, columnsToExclude: Array<string> = []): any {
         this._resetFilter$.emit('delete');
         this._renderData = this._originalData.filter((element) => {
             for (const key in element) {
@@ -63,7 +110,7 @@ export class CooTableDataService {
      *
      * @param queryParams
      */
-    public filter(queryParams: ListingParameters): any {
+    private filter(queryParams: ListingParameters): any {
         this._resetFilter$.emit('delete:search');
         this._renderData = this._originalData.filter((element) => {
             let isValid: boolean = true;
@@ -86,7 +133,7 @@ export class CooTableDataService {
      * @param queryParams
      * @param columnName
      */
-    public sort(queryParams: ListingParameters, columnName: string): any {
+    private sort(queryParams: ListingParameters, columnName: string): any {
         if (columnName && queryParams.sort) {
             this._renderData = this._renderData.sort((a, b) => {
 
