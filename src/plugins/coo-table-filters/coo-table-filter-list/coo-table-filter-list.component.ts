@@ -11,7 +11,7 @@ import {Subject} from 'rxjs/Subject';
 
 import {CooTableConfig} from './../../../model/coo-table-config.model';
 import {ListingParameters} from './../../../model/listing-query-params.model';
-import {CooTableDataService} from './../../../services/coo-table-data.service';
+import {CooTableDataEventSerivce} from './../../../services/coo-table-data-event.service';
 import {CooTableRouteUpdateComponent} from './../../coo-table-route-update/coo-table-route-update.component';
 import {CooTableFilterSearchEvent} from './../coo-table-filter-list/coo-table-filter-search.event';
 import {CooTableFilterEvent} from './../coo-table-filter.event';
@@ -61,7 +61,7 @@ export class CooTableFilterListComponent extends CooTableRouteUpdateComponent im
     /**
      *
      */
-    constructor(private _elRef: ElementRef, private _ngZone: NgZone, private _cooTableDataService: CooTableDataService, _router: Router, _activeRoute: ActivatedRoute,
+    constructor(private _elRef: ElementRef, private _ngZone: NgZone, private _cooTableDataEventService: CooTableDataEventSerivce, _router: Router, _activeRoute: ActivatedRoute,
                 cooTableConfig: CooTableConfig, private _queryParams: ListingParameters) {
         super(_router, _activeRoute, cooTableConfig);
         this.search$.debounceTime(300).distinctUntilChanged().subscribe((term: string) => {
@@ -73,7 +73,7 @@ export class CooTableFilterListComponent extends CooTableRouteUpdateComponent im
             });
         });
 
-        _cooTableDataService.resetFilter.subscribe(data => {
+        _cooTableDataEventService.subscribeEvent().subscribe(data => {
             if (data === 'delete') {
                 this.menuOpen = false;
                 this.selectedItem = null;

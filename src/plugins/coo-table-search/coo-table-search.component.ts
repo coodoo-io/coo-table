@@ -6,6 +6,8 @@ import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, ViewCh
 import {ActivatedRoute, NavigationExtras, Router} from '@angular/router';
 import {Subject} from 'rxjs/Subject';
 
+import {CooTableDataEventSerivce} from '../../services/coo-table-data-event.service';
+
 import {CooTableConfig} from './../../model/coo-table-config.model';
 import {ListingParameters} from './../../model/listing-query-params.model';
 import {CooTableDataService} from './../../services/coo-table-data.service';
@@ -26,13 +28,15 @@ export class CooTableSearchComponent extends CooTableRouteUpdateComponent implem
     public search: string = '';
     search$: Subject<string> = new Subject<string>();
 
-    constructor(private _dataService: CooTableDataService, _router: Router, _activeRoute: ActivatedRoute, cooTableConfig: CooTableConfig, private _queryParams: ListingParameters) {
+    constructor(_router: Router, _activeRoute: ActivatedRoute, cooTableConfig: CooTableConfig, private _queryParams: ListingParameters,
+                private cooTableDataEventService: CooTableDataEventSerivce) {
         super(_router, _activeRoute, cooTableConfig);
         this.search$.debounceTime(300).distinctUntilChanged().subscribe((data) => {
             this.onSearch.emit(new CooTableSearchEvent(this.cooTableSearchInput.nativeElement.value));
             super.updateRouteForSearch(this.cooTableSearchInput.nativeElement.value);
         });
-        _dataService.resetFilter.subscribe(data => {
+        cooTableDataEventService.subscribeEvent().subscribe(data => {
+            console.log(data);
             if (data === 'delete:search') {
                 this.cooTableSearchInput.nativeElement.value = '';
             }

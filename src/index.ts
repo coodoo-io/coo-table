@@ -19,12 +19,12 @@ import {CooTableRowSelectComponent} from './plugins/coo-table-rowselect/coo-tabl
 import {CooTableSearchComponent} from './plugins/coo-table-search/coo-table-search.component';
 import {CooTableSelectionComponent} from './plugins/coo-table-selection/coo-table-selection.component';
 import {CooTableSorterComponent} from './plugins/coo-table-sorter/coo-table-sorter.component';
+import {CooTableDataEventSerivce} from './services/coo-table-data-event.service';
 import {CooTableDataService} from './services/coo-table-data.service';
 
 @NgModule({
     imports : [ CommonModule ],
-    providers :
-        [ CooTableService, CooTableDataService, { provide : Array, useValue : [] }, ListingParameters, { provide : CooTableConfig, useValue : [ false, 'table table-hover' ] } ],
+    providers : [ CooTableService, ListingParameters, { provide : CooTableConfig, useValue : [ false, 'table table-hover' ] }, CooTableDataEventSerivce ],
     declarations : [
         CooTableComponent, CooTableCounterComponent, CooTableActiveFiltersComponent, CooTableSelectionComponent, CooTableSorterComponent, CooTableRowSelectComponent,
         CooTableLoadingDirective, CooTableSearchComponent, CooTableFilterTextComponent, CooTableFilterListComponent, CooTablePagerComponent, CooTableAllRowSelectComponent

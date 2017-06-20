@@ -8,7 +8,7 @@ import {Subject} from 'rxjs/Subject';
 
 import {CooTableConfig} from './../../../model/coo-table-config.model';
 import {ListingParameters} from './../../../model/listing-query-params.model';
-import {CooTableDataService} from './../../../services/coo-table-data.service';
+import {CooTableDataEventSerivce} from './../../../services/coo-table-data-event.service';
 import {CooTableRouteUpdateComponent} from './../../coo-table-route-update/coo-table-route-update.component';
 import {CooTableFilterEvent} from './../coo-table-filter.event';
 
@@ -60,7 +60,8 @@ export class CooTableFilterTextComponent extends CooTableRouteUpdateComponent im
      */
     filter$: Subject<string> = new Subject<string>();
 
-    constructor(private _dataService: CooTableDataService, _router: Router, _activeRoute: ActivatedRoute, cooTableConfig: CooTableConfig, private _queryParams: ListingParameters) {
+    constructor(private cooTableDataEventService: CooTableDataEventSerivce, _router: Router, _activeRoute: ActivatedRoute, cooTableConfig: CooTableConfig,
+                private _queryParams: ListingParameters) {
         super(_router, _activeRoute, cooTableConfig);
 
         this.filter$
@@ -73,7 +74,7 @@ export class CooTableFilterTextComponent extends CooTableRouteUpdateComponent im
                 this.onFilter.emit(new CooTableFilterEvent(this.column, this.cooTableFilterInput.nativeElement.value));
                 super.updateRouteForFilter(this.column, this.cooTableFilterInput.nativeElement.value);
             });
-        _dataService.resetFilter.subscribe(data => {
+        cooTableDataEventService.subscribeEvent().subscribe(data => {
             if (data === 'delete') {
                 this.cooTableFilterInput.nativeElement.value = '';
                 this.highlightFieldWithFilter();

@@ -1,0 +1,36 @@
+{
+  "name": "coo-table",
+  "version": "1.0.0",
+  "description": "",
+  "module": "./index.js",
+  "typings": "./index.d.ts",
+  "private": false,
+  "scripts": {},
+  "keywords": [
+    "ng2",
+    "angular2",
+    "table",
+    "data",
+    "data table",
+    "set",
+    "bootstrap",
+    "module",
+    "ngx"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coodoo-io/coo-table.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://s3.eu-central-1.amazonaws.com/coodoo-baf-resources/coo-table/demo/src/index.html",
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "ionicons": "^3.0.0",
+    "@angular/router": "^4.0.0"
+  },
+  "peerDependencies": {
+    "@angular/core": "4.0.0",
+    "@angular/common": "4.0.0"
+  }
+}

@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
 import {MainComponent} from './main.component';
 import {CooTableModule} from './modules/table/index';
+import {CooTableDataService} from './modules/table/services/coo-table-data.service';
 import {WineService} from './wines/wine.service';
 
 @NgModule({
@@ -15,7 +16,7 @@ import {WineService} from './wines/wine.service';
         BrowserModule, FormsModule, HttpModule, CooTableModule,
         RouterModule.forRoot([ { path : '', pathMatch : 'full', component : AppComponent }, { redirectTo : '', path : 'foo' } ], { useHash : true })
     ],
-    providers : [ WineService ],
+    providers : [ WineService, { provide : CooTableDataService, useValue : [] } ],
     bootstrap : [ MainComponent ]
 })
 export class AppModule {

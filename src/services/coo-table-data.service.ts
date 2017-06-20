@@ -6,21 +6,25 @@ import {Observable} from 'rxjs/Observable';
 import {ListingMetadata} from './../model/listing-metadata';
 import {ListingParameters} from './../model/listing-query-params.model';
 import {ListingResult} from './../model/listing-result';
+import {CooTableDataEventSerivce} from './coo-table-data-event.service';
 
 /**
  * @TODO renaming ClientListingDataService
  */
 @Injectable()
-export class CooTableDataService {
+export abstract class CooTableDataService {
     private _originalData: any;
     private _renderData: any;
     private _resetFilter$: EventEmitter<string> = new EventEmitter<string>();
-    private _metaData = new ListingMetadata();
+    private _metaData: ListingMetadata = new ListingMetadata();
+
+    private cooTableDataEventSerivce: CooTableDataEventSerivce = null;
     /**
      *
      * @param data
      */
-    constructor(@Inject(Array) data: Array<any> = []) {
+    constructor(@Inject(Array) data: Array<any> = [], cooTableDataEventService: CooTableDataEventSerivce) {
+        this.cooTableDataEventSerivce = cooTableDataEventService;
         this._originalData = [...data ];
         this._renderData = data;
     }
@@ -51,14 +55,12 @@ export class CooTableDataService {
     /**
      *
      * @param queryParams
-     * @param columnName
      * @param columnsToExclude
      */
-    public getData(queryParams: ListingParameters, columnName: string = '', columnsToExclude: Array<string> = []): Observable<any> {
-        const listingResult = new ListingResult<any>();
-        let tempData = [];
-        queryParams.sortColumn = columnName;
-        if (columnsToExclude.length > 0) {
+    public getData(queryParams: ListingParameters, columnsToExclude: Array<string> = null): Observable<any> {
+        const listingResult: ListingResult<any> = new ListingResult<any>();
+        let tempData: Array<any> = [];
+        if (columnsToExclude) {
             tempData = this.filterAll(queryParams, columnsToExclude);
         } else {
             tempData = this.filter(queryParams);
@@ -76,13 +78,13 @@ export class CooTableDataService {
         return Observable.of(listingResult);
     }
 
-    private calcEndIndex(totalCount: number, startIndex: number, limit: number) {
-        let endIndex: number = startIndex + limit - 1;
+    private calcEndIndex(totalCount: number, startIndex: number, limit: number): number {
+        const endIndex: number = startIndex + limit - 1;
         return endIndex > totalCount ? totalCount : endIndex;
     }
 
     private countPages(totalRecords: number, recordsPerPage: number): number {
-        let numPages = totalRecords / recordsPerPage + (totalRecords % recordsPerPage !== 0 ? 1 : 0);
+        let numPages: number = totalRecords / recordsPerPage + (totalRecords % recordsPerPage !== 0 ? 1 : 0);
         if (totalRecords < recordsPerPage) {
             numPages = 1;
         }
@@ -95,7 +97,7 @@ export class CooTableDataService {
      * @param columnsToExclude
      */
     private filterAll(queryParams: ListingParameters, columnsToExclude: Array<string> = []): any {
-        this._resetFilter$.emit('delete');
+        this.cooTableDataEventSerivce.emitDelete('delete');
         this._renderData = this._originalData.filter((element) => {
             for (const key in element) {
                 if (element.hasOwnProperty(key) && columnsToExclude.indexOf(key) === -1 && (`${element[key]}`.toLowerCase().includes(`${queryParams.filter}`.toLowerCase()))) {
@@ -111,7 +113,7 @@ export class CooTableDataService {
      * @param queryParams
      */
     private filter(queryParams: ListingParameters): any {
-        this._resetFilter$.emit('delete:search');
+        this.cooTableDataEventSerivce.emitDelete('delete:search');
         this._renderData = this._originalData.filter((element) => {
             let isValid: boolean = true;
             let isInvalid: boolean = false;

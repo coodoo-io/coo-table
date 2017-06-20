@@ -4,10 +4,11 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {RouterTestingModule} from '@angular/router/testing';
 
+import {CooTableDataEventSerivce} from '../../../services/coo-table-data-event.service';
+
 import {CooTableService} from './../../../coo-table.service';
 import {CooTableConfig} from './../../../model/coo-table-config.model';
 import {ListingParameters} from './../../../model/listing-query-params.model';
-import {CooTableDataService} from './../../../services/coo-table-data.service';
 import {CooTableFilterTextComponent} from './coo-table-filter-text.component';
 
 describe('CooTableFilterTextComponent', () => {
@@ -18,7 +19,8 @@ describe('CooTableFilterTextComponent', () => {
         TestBed.configureTestingModule({
             declarations : [ CooTableFilterTextComponent ],
             providers : [
-                CooTableService, CooTableDataService, { provide : Array, useValue : [] }, { provide : CooTableConfig, useValue : [ false, 'table table-hover' ] }, ListingParameters
+                CooTableService, CooTableDataEventSerivce, { provide : Array, useValue : [] }, { provide : CooTableConfig, useValue : [ false, 'table table-hover' ] },
+                ListingParameters
             ],
             imports : [ RouterTestingModule ]
         });
