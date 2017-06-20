@@ -18,8 +18,7 @@
     ]
   },
   "include": [
-    "./src/**/*",
-    "./demo/src/**/*"
+    "./src/**/*"
   ],
   "exclude": [
     "node_modules",

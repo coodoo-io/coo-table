@@ -24,7 +24,10 @@ import {CooTableDataService} from './services/coo-table-data.service';
 
 @NgModule({
     imports : [ CommonModule ],
-    providers : [ CooTableService, ListingParameters, { provide : CooTableConfig, useValue : [ false, 'table table-hover' ] }, CooTableDataEventSerivce ],
+    providers : [
+        CooTableService, ListingParameters, { provide : CooTableConfig, useValue : [ false, 'table table-hover' ] }, { provide : CooTableDataService, useValue : [] },
+        CooTableDataEventSerivce
+    ],
     declarations : [
         CooTableComponent, CooTableCounterComponent, CooTableActiveFiltersComponent, CooTableSelectionComponent, CooTableSorterComponent, CooTableRowSelectComponent,
         CooTableLoadingDirective, CooTableSearchComponent, CooTableFilterTextComponent, CooTableFilterListComponent, CooTablePagerComponent, CooTableAllRowSelectComponent

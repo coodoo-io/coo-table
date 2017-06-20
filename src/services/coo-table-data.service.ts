@@ -57,10 +57,10 @@ export abstract class CooTableDataService {
      * @param queryParams
      * @param columnsToExclude
      */
-    public getData(queryParams: ListingParameters, columnsToExclude: Array<string> = null): Observable<any> {
+    public getData(queryParams: ListingParameters, columnsToExclude: Array<string> = []): Observable<any> {
         const listingResult: ListingResult<any> = new ListingResult<any>();
         let tempData: Array<any> = [];
-        if (columnsToExclude) {
+        if (queryParams.filter) {
             tempData = this.filterAll(queryParams, columnsToExclude);
         } else {
             tempData = this.filter(queryParams);

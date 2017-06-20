@@ -3,24 +3,25 @@ import {DebugElement} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 
-import {CooTableCounterComponent} from './plugins/coo-table-counter/coo-table-counter.component';
+import {CooTableComponent} from './coo-table.component';
+
+class CooTableComponentMock extends CooTableComponent {}
 
 describe('CooTableCounterComponent', () => {
-  let component: CooTableCounterComponent;
-  let fixture: ComponentFixture<CooTableCounterComponent>;
+    let component: CooTableComponentMock;
+    let fixture: ComponentFixture<CooTableComponentMock>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({declarations: [CooTableCounterComponent]})
-        .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({ declarations : [ CooTableComponentMock ] }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CooTableCounterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(CooTableComponentMock);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

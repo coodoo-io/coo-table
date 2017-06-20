@@ -28,7 +28,7 @@ export class CooTableAllRowSelectComponent {
 
     public isSelected: boolean = false;
 
-    constructor(private _cooTableService: CooTableService, private _cooTableDataService: CooTableDataService) {
+    constructor(private _cooTableService: CooTableService) {
     }
     /**
      * Checks weather the elements should be checked or not for current page
@@ -36,9 +36,9 @@ export class CooTableAllRowSelectComponent {
     checkElementState(): void {
         this.isSelected = !this.isSelected;
         if (!this.selectView) {
-            this._cooTableDataService.renderData.forEach((element) => {
+            /*this._cooTableDataService.renderData.forEach((element) => {
                 this._cooTableService.selectRow(new CooTableRowSelectEvent(element.id, this.isSelected, element));
-            });
+            });*/
         } else {
             const elements: any = document.querySelectorAll('coo-table-rowselect');
             elements.forEach(element => {
