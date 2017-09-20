@@ -105,7 +105,7 @@ export class CooTableComponent implements OnInit, AfterContentInit {
         this.list();
     }
     /**
-     *
+     * This function need to be over
      */
     list(): any{};
 }

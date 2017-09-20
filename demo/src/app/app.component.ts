@@ -5,6 +5,7 @@ import * as webpack from 'webpack';
 
 import {CooTableComponent} from '../../../src/coo-table.component';
 import {CooTableConfig} from '../../../src/model/coo-table-config.model';
+import {ListingMetadata} from '../../../src/model/listing-metadata';
 
 import {CooTableService} from './modules/table/coo-table.service';
 import {ListingMetadata} from './modules/table/model/listing-metadata';
@@ -23,6 +24,7 @@ export class AppComponent extends CooTableComponent {
 
     limit: number = 10;
     rows: Array<Wine> = [];
+    metadata: ListingMetadata;
     public update = false;
     private _doubleClicked: Array<any> = [];
 
